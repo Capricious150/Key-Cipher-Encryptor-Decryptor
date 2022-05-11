@@ -79,19 +79,20 @@ const encryptor = () => {
             }
 
             let lower = str.toLowerCase()
+            lowerArray = lower.split('')
             try {
-        
-                    for (let i = 0; i < alphabet.length; i++) {
-                        if (lower.includes(keyAlphabet[i])){
-                            console.log(`replacing ${keyAlphabet[i]} with ${alphabet[i]}`)
-                            lower = lower.replaceAll(keyAlphabet[i], alphabet[i])
-                        }
+                for (let i = 0; i < lowerArray.length; i++) {
+                    if (keyAlphabet.indexOf(lowerArray[i]) !== -1){
+                        let alphaIndex = keyAlphabet.indexOf(lower[i])
+                        lowerArray[i] = alphabet[alphaIndex]
                     }
-                } catch {
-                    console.log("I guess something went wrong")
-                } finally {
-                    return lower
                 }
+                lower = lowerArray.join('')
+            } catch {
+                console.log("I guess something went wrong")
+            } finally {
+                return lower
+            }
         }
     }
 }
@@ -102,6 +103,11 @@ console.log(encryptor().printKey());
 console.log(encryptor().printKeyAlpha());
 console.log(encryptor().encrypt("abc"))
 console.log(encryptor().encrypt("abcabc"))
+console.log(encryptor().decrypt("sam"))
+console.log(encryptor().decrypt("samsam"))
+console.log(encryptor().encrypt("This is an example of a longer string, with some special characters. It has proper capitilization"))
+console.log(encryptor().decrypt('rcdq dq sk ixsjnhi le s hlkbip qrpdkb, vdrc qlji qnimdsh mcspsmripq. dr csq nplnip msndrdhdzsrdlk'))
+
 // console.log(encryptor().decrypt('cdhhl dudpylkd'))
 
 module.exports = encryptor
