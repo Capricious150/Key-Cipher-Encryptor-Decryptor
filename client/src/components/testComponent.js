@@ -1,6 +1,5 @@
 const encryptor = require('../utils/encryptor')
 
-console.log(encryptor().printKey());
+
 console.log(encryptor().setKey("samwise"));
-console.log(encryptor().printKey());
-console.log(encryptor().printKeyAlpha());
+console.log(encryptor().encrypt("This is an example of a longer string, with some special characters. It has proper capitilization"))

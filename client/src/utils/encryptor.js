@@ -5,8 +5,7 @@ let keyAlphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","
 const encryptor = () => {
     
     return {
-        setKey: async function(keystr){
-        try {
+        setKey: function(keystr){
             if (!keystr){
                 keyAlphabet = [...alphabet];
                 return console.log("keyAlphabet reset");
@@ -17,7 +16,6 @@ const encryptor = () => {
             };
 
             let lower = keystr.toLowerCase();
-            console.log(lower);
             
             for (let i = 0; i < lower.length; i++) {
                 if (alphabet.indexOf(lower[i]) === -1){
@@ -35,12 +33,7 @@ const encryptor = () => {
                 keyAlphabet.splice(alphaIndex, 1)
                 keyAlphabet.unshift([...keySet][i])
             }
-            console.log(keyAlphabet)
-            } catch {
-                console.log("I guess something went wrong")
-            } finally {
-                return "complete"
-            }
+            return "Passkey updated"
         }, 
 
         printKey: function(){
@@ -51,14 +44,13 @@ const encryptor = () => {
             return keyAlphabet;
         },
 
-        encrypt: async function(str){
+        encrypt: function(str){
             if (typeof str !== "string"){
                 return console.log("Phrase is not a string")
             }
 
             let lower = str.toLowerCase()
             lowerArray = lower.split('')
-            try {
                 for (let i = 0; i < lowerArray.length; i++) {
                     if (alphabet.indexOf(lowerArray[i]) !== -1){
                         let alphaIndex = alphabet.indexOf(lower[i])
@@ -66,21 +58,16 @@ const encryptor = () => {
                     }
                 }
                 lower = lowerArray.join('')
-            } catch {
-                console.log("I guess something went wrong")
-            } finally {
                 return lower
-            }
         },
 
-        decrypt: async function(str){
+        decrypt: function(str){
             if (typeof str !== "string"){
                 return console.log("Phrase is not a string")
             }
 
             let lower = str.toLowerCase()
             lowerArray = lower.split('')
-            try {
                 for (let i = 0; i < lowerArray.length; i++) {
                     if (keyAlphabet.indexOf(lowerArray[i]) !== -1){
                         let alphaIndex = keyAlphabet.indexOf(lower[i])
@@ -88,26 +75,13 @@ const encryptor = () => {
                     }
                 }
                 lower = lowerArray.join('')
-            } catch {
-                console.log("I guess something went wrong")
-            } finally {
                 return lower
-            }
         }
     }
 }
 
-console.log(encryptor().printKey());
-console.log(encryptor().setKey("samwise"));
-console.log(encryptor().printKey());
-console.log(encryptor().printKeyAlpha());
-console.log(encryptor().encrypt("abc"))
-console.log(encryptor().encrypt("abcabc"))
-console.log(encryptor().decrypt("sam"))
-console.log(encryptor().decrypt("samsam"))
-console.log(encryptor().encrypt("This is an example of a longer string, with some special characters. It has proper capitilization"))
-console.log(encryptor().decrypt('rcdq dq sk ixsjnhi le s hlkbip qrpdkb, vdrc qlji qnimdsh mcspsmripq. dr csq nplnip msndrdhdzsrdlk'))
-
-// console.log(encryptor().decrypt('cdhhl dudpylkd'))
+// console.log(encryptor().setKey("samwise"));
+// console.log(encryptor().encrypt("This is an example of a longer string, with some special characters. It has proper capitilization"))
+// console.log(encryptor().decrypt('rcdq dq sk ixsjnhi le s hlkbip qrpdkb, vdrc qlji qnimdsh mcspsmripq. dr csq nplnip msndrdhdzsrdlk'))
 
 module.exports = encryptor
