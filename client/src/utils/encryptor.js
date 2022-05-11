@@ -51,12 +51,47 @@ const encryptor = () => {
             return keyAlphabet;
         },
 
-        ecrypt: function(str){
+        encrypt: async function(str){
+            if (typeof str !== "string"){
+                return console.log("Phrase is not a string")
+            }
 
+            let lower = str.toLowerCase()
+            lowerArray = lower.split('')
+            try {
+                for (let i = 0; i < lowerArray.length; i++) {
+                    if (alphabet.indexOf(lowerArray[i]) !== -1){
+                        let alphaIndex = alphabet.indexOf(lower[i])
+                        lowerArray[i] = keyAlphabet[alphaIndex]
+                    }
+                }
+                lower = lowerArray.join('')
+            } catch {
+                console.log("I guess something went wrong")
+            } finally {
+                return lower
+            }
         },
 
-        decrypt: function(str){
+        decrypt: async function(str){
+            if (typeof str !== "string"){
+                return console.log("Phrase is not a string")
+            }
 
+            let lower = str.toLowerCase()
+            try {
+        
+                    for (let i = 0; i < alphabet.length; i++) {
+                        if (lower.includes(keyAlphabet[i])){
+                            console.log(`replacing ${keyAlphabet[i]} with ${alphabet[i]}`)
+                            lower = lower.replaceAll(keyAlphabet[i], alphabet[i])
+                        }
+                    }
+                } catch {
+                    console.log("I guess something went wrong")
+                } finally {
+                    return lower
+                }
         }
     }
 }
@@ -65,5 +100,8 @@ console.log(encryptor().printKey());
 console.log(encryptor().setKey("samwise"));
 console.log(encryptor().printKey());
 console.log(encryptor().printKeyAlpha());
+console.log(encryptor().encrypt("abc"))
+console.log(encryptor().encrypt("abcabc"))
+// console.log(encryptor().decrypt('cdhhl dudpylkd'))
 
 module.exports = encryptor
